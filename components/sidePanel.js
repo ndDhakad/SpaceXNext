@@ -9,7 +9,10 @@ import styles from '../styles/Home.module.css'
 
 import Grid from '@material-ui/core/Grid';
 import Select from "react-select";
-export default function SidePanel(){
+
+import fetch from "isomorphic-unfetch";
+
+export default function SidePanel({onApplyFilterHandler}){
     const yearArray = [
         {label: "2006", value: 2006},
         {label: "2007", value: 2007},
@@ -55,17 +58,41 @@ export default function SidePanel(){
         setYear(null);
         setLaunchSuccess(null);
         setLandingSuccess(null);
+        onClickApplyHandler(null,true);
         //onUpdateFilter("reset",null);
         //onLoadLaunchProjects();
     };
-    const onClickApplyHandler = () =>{
-        let obj = {
-            year: year,
-            landingSuccess: landingSuccess,
-            launchSuccess: launchSuccess
+    async function onClickApplyHandler (e=null,resetFilter= false) {
+        let value = {
+            launch_year: year,
+            land_success: landingSuccess,
+            launch_success: launchSuccess
         }
-        console.log("filter data:", obj);
+
+       // console.log("filter data:", value);
+
+        let transformedParams = {};
+
+        for ( let i in value )
+            if ( value.hasOwnProperty( i ) && value[i] !== null)
+                transformedParams[i] = value[i];
+        console.log("filter data:", transformedParams);
+        let queryString = Object.keys(transformedParams)
+            .map(function (k) {
+                return encodeURIComponent(k) + "=" + encodeURIComponent(transformedParams[k]);
+            })
+            .join("&");
+
+
+        console.log(resetFilter, queryString);
+        const res = await fetch('https://api.spaceXdata.com/v3/launches?limit=100'+'&'+queryString);
+        const data = await res.json();
+        console.log(data);
+        queryString = resetFilter || queryString=="" ? "": "?"+queryString;
+        onApplyFilterHandler(queryString, data);
     }
+
+
 
     return(
 
@@ -105,7 +132,7 @@ export default function SidePanel(){
                     </FormControl>
                 </Grid>
                 <Grid style={{alignItems:"center", padding: 20}}>
-                    <Button variant="contained" color="primary" onClick={onClickResetHandler}>
+                    <Button variant="contained" color="primary" onClick={(e)=> onClickResetHandler(e,false)}>
                         Reset All
                     </Button>
                 </Grid>

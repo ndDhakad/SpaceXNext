@@ -3,7 +3,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-
+import Image from 'next/image'
 
 export default function ProjectCard({project}){
 
@@ -13,13 +13,13 @@ export default function ProjectCard({project}){
     return (
         <Card style={{height:450}}>
             <CardActionArea>
-                <CardMedia
-                    component="img"
-                    alt={project.mission_name}
-                    height="240"
-                    image={project.links.mission_patch}
-                    title={project.mission_name}
-                    style={{contain: "size", backgroundColor: "lightgray"}}
+                
+                <Image
+                    layout="fill"
+                    src={project.links.mission_patch}
+                    alt="Picture of the author"
+                    loading="lazy"
+                    quality={50}
                 />
 
                 <CardContent>

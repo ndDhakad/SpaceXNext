@@ -1,6 +1,7 @@
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
+import CardActions from "@material-ui/core/CardActions";
+import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Image from 'next/image'
@@ -11,9 +12,37 @@ export default function ProjectCard({project}){
             return value === null ? 'NA' : '' + value;
         }
     return (
-        <Card style={{height:450}}>
+        <div className="mycard">
+            <div className="myimg">
+                <Image
+                    src={project.links.mission_patch}
+                    alt={project.mission_name}
+                    loading="lazy"
+                    quality={10}
+                    width={200}
+                    height={200}
+                />
+            </div>
+            <div className="mylabel">
+                {project.mission_name} #{project.flight_number}
+            </div>
+
+            <div className="myinfo">
+                <b> Mission Ids:</b> {project.mission_id.join(",")}
+            </div>
+            <div className="myinfo">
+                <b>Launch Year:</b> {project.launch_year}
+            </div>
+            <div className="myinfo">
+                <b>Successful Launch:</b> {"" + project.launch_success}
+            </div>
+            <div className="myinfo">
+                <b>Successful Landing:</b>{" "}
+                {getLandingSuccess(project.rocket.first_stage.cores[0].land_success)}
+            </div>
+        </div>
+        /*<Card style={{height:450}}>
             <CardActionArea>
-                
                 <Image
                     layout="fill"
                     src={project.links.mission_patch}
@@ -21,8 +50,8 @@ export default function ProjectCard({project}){
                     loading="lazy"
                     quality={50}
                 />
-
                 <CardContent>
+
                     <Typography gutterBottom variant="h5" component="h2" style={{color: "blue"}}>
                         {project.mission_name} #{project.flight_number}
                     </Typography>
@@ -40,6 +69,7 @@ export default function ProjectCard({project}){
                     </Typography>
                 </CardContent>
             </CardActionArea>
-        </Card>
+        </Card>*/
+
     );
 }

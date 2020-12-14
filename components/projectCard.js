@@ -15,7 +15,7 @@ export default function ProjectCard({project}){
         <div className="mycard">
             <div className="myimg">
                 <Image
-                    src={project.links.mission_patch}
+                    src={project.links.mission_patch === null ? "https://upload.wikimedia.org/wikipedia/commons/0/09/Dummy_flag.png" : project.links.mission_patch}
                     alt={project.mission_name}
                     loading="lazy"
                     quality={10}

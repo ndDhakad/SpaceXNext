@@ -79,7 +79,7 @@ export default function SidePanel({ onApplyFilterHandler, filter }) {
         };
 
         let transformedParams = {};
-
+debugger;
         for (let i in value)
             if (value[i] !== null && value[i] !== undefined) {
                 console.log(value[i]);
@@ -88,7 +88,7 @@ export default function SidePanel({ onApplyFilterHandler, filter }) {
 
         console.log(transformedParams);
         let queryString =
-            "?" +
+            // "?" +
             Object.keys(transformedParams)
                 .map(function (k) {
                     return (
@@ -101,14 +101,18 @@ export default function SidePanel({ onApplyFilterHandler, filter }) {
 
         console.log("VALUE", value, transformedParams, queryString);
 
-        if (resetFilter) {
+        /*if (resetFilter) {
             queryString = "";
-        }
+        }*/
+
+        const urlQueryString = resetFilter ? "" : "?"+queryString;
+        queryString = resetFilter ? "" : "&"+queryString;
         const res = await fetch(
             "https://api.spaceXdata.com/v3/launches?limit=100" + queryString
         );
         const data = await res.json();
-        onApplyFilterHandler(queryString, data);
+        console.log(data);
+        onApplyFilterHandler(urlQueryString, data);
     }
 
     return (

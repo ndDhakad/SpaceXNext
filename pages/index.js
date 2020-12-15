@@ -9,6 +9,9 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import {SyncLoader} from "react-spinners";
 import NoDataAlert from "../components/noDataAlert";
+import config from "../config.json";
+
+const {apiEndPoint} = config;
 
 export default function Home(props) {
     const [data, setData] = React.useState([]);
@@ -34,7 +37,7 @@ export default function Home(props) {
                 .join("&");
 
             let res = await fetch(
-                "https://api.spaceXdata.com/v3/launches?limit=100" + "&" + queryString
+                `${apiEndPoint} & ${queryString}`
             );
             const data = await res.json();
 
@@ -118,7 +121,7 @@ Home.getInitialProps = async function () {
     /*const queryKey = 'user';
       const queryValue = router.query[queryKey] || router.asPath.match(new RegExp(`[&?]${queryKey}=(.*)(&|$)`))*/
     try {
-        const res = await fetch("https://api.spaceXdata.com/v3/launches?limit=100");
+        const res = await fetch(apiEndPoint );
         const data = await res.json();
         return { data };
     } catch (err) {

@@ -11,6 +11,8 @@ import Grid from "@material-ui/core/Grid";
 import Select from "react-select";
 
 import fetch from "isomorphic-unfetch";
+import config from "../config.json";
+const {apiEndPoint} = config;
 
 export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
     const yearArray = [
@@ -101,7 +103,7 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
         let data = [];
         try {
             const res = await fetch(
-                "https://api.spaceXdata.com/v3/launches?limit=100" + queryString
+                apiEndPoint + queryString
             );
              data = await res.json();
         }

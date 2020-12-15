@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -12,23 +12,23 @@ import Select from "react-select";
 
 import fetch from "isomorphic-unfetch";
 
-export default function SidePanel({ onApplyFilterHandler, filter }) {
+export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
     const yearArray = [
-        { label: "2006", value: 2006 },
-        { label: "2007", value: 2007 },
-        { label: "2008", value: 2008 },
-        { label: "2009", value: 2009 },
-        { label: "2010", value: 2010 },
-        { label: "2011", value: 2011 },
-        { label: "2012", value: 2012 },
-        { label: "2013", value: 2013 },
-        { label: "2014", value: 2014 },
-        { label: "2015", value: 2015 },
-        { label: "2016", value: 2016 },
-        { label: "2017", value: 2017 },
-        { label: "2018", value: 2018 },
-        { label: "2019", value: 2019 },
-        { label: "2020", value: 2020 },
+        {label: "2006", value: 2006},
+        {label: "2007", value: 2007},
+        {label: "2008", value: 2008},
+        {label: "2009", value: 2009},
+        {label: "2010", value: 2010},
+        {label: "2011", value: 2011},
+        {label: "2012", value: 2012},
+        {label: "2013", value: 2013},
+        {label: "2014", value: 2014},
+        {label: "2015", value: 2015},
+        {label: "2016", value: 2016},
+        {label: "2017", value: 2017},
+        {label: "2018", value: 2018},
+        {label: "2019", value: 2019},
+        {label: "2020", value: 2020},
     ];
     const [year, setYear] = React.useState(null);
     const [launchSuccess, setLaunchSuccess] = React.useState(null);
@@ -47,20 +47,14 @@ export default function SidePanel({ onApplyFilterHandler, filter }) {
         let value = newValue !== null ? newValue.value : null;
 
         setYear(value);
-        //onUpdateFilter("year",value);
-        //onLoadLaunchProjects();
     };
 
     const handleChangeLaunch = (event) => {
         setLaunchSuccess(event.target.value);
-        //onUpdateFilter("launch",event.target.value);
-        //onLoadLaunchProjects();
     };
 
     const handleChangeLanding = (event) => {
         setLandingSuccess(event.target.value);
-        //onUpdateFilter("landing",event.target.value);
-        //onLoadLaunchProjects();
     };
 
     const onClickResetHandler = () => {
@@ -71,7 +65,9 @@ export default function SidePanel({ onApplyFilterHandler, filter }) {
         //onUpdateFilter("reset",null);
         //onLoadLaunchProjects();
     };
+
     async function onClickApplyHandler(e = null, resetFilter = false) {
+        setSpinner(true);
         let value = {
             launch_year: year,
             land_success: landingSuccess,
@@ -79,16 +75,14 @@ export default function SidePanel({ onApplyFilterHandler, filter }) {
         };
 
         let transformedParams = {};
-debugger;
+        debugger;
         for (let i in value)
             if (value[i] !== null && value[i] !== undefined) {
                 console.log(value[i]);
                 transformedParams[i] = value[i];
             }
 
-        console.log(transformedParams);
         let queryString =
-            // "?" +
             Object.keys(transformedParams)
                 .map(function (k) {
                     return (
@@ -101,42 +95,46 @@ debugger;
 
         console.log("VALUE", value, transformedParams, queryString);
 
-        /*if (resetFilter) {
-            queryString = "";
-        }*/
 
-        const urlQueryString = resetFilter ? "" : "?"+queryString;
-        queryString = resetFilter ? "" : "&"+queryString;
-        const res = await fetch(
-            "https://api.spaceXdata.com/v3/launches?limit=100" + queryString
-        );
-        const data = await res.json();
-        console.log(data);
+        const urlQueryString = resetFilter ? "" : "?" + queryString;
+        queryString = resetFilter ? "" : "&" + queryString;
+        let data = [];
+        try {
+            const res = await fetch(
+                "https://api.spaceXdata.com/v3/launches?limit=100" + queryString
+            );
+             data = await res.json();
+        }
+        catch(e){
+            console.log(e);
+        }
+
         onApplyFilterHandler(urlQueryString, data);
+        setSpinner(false);
     }
 
     return (
         <Paper elevation={3} className={styles.container}>
             <h2>Filters</h2>
-            <Grid style={{ alignItems: "center", padding: 20 }}>
-                <span style={{ fontWeight: "bold", textDecoration: "underline" }}>
+            <Grid className="sidePanelElements">
+                <span style={{fontWeight: "bold", textDecoration: "underline"}}>
                     Launch Year{" "}
                 </span>
-                <div style={{ width: 200 }}>
+                <div style={{width: 200}}>
                     <Select
                         className="basic-single"
                         classNamePrefix="select"
                         isClearable
                         name="year"
                         onChange={handleChangeYear}
-                        value={{ label: year, value: year }}
+                        value={{label: year, value: year}}
                         options={yearArray}
                     />
                 </div>
             </Grid>
-            <Grid style={{ alignItems: "center", padding: 20 }}>
+            <Grid className="sidePanelElements">
                 <FormControl component="fieldset">
-                    <span style={{ fontWeight: "bold", textDecoration: "underline" }}>
+                    <span style={{fontWeight: "bold", textDecoration: "underline"}}>
                         Launch Success{" "}
                     </span>
                     <RadioGroup
@@ -145,14 +143,14 @@ debugger;
                         value={launchSuccess}
                         onChange={handleChangeLaunch}
                     >
-                        <FormControlLabel value="true" control={<Radio />} label="True" />
-                        <FormControlLabel value="false" control={<Radio />} label="False" />
+                        <FormControlLabel value="true" control={<Radio/>} label="True"/>
+                        <FormControlLabel value="false" control={<Radio/>} label="False"/>
                     </RadioGroup>
                 </FormControl>
             </Grid>
-            <Grid style={{ alignItems: "center", padding: 20 }}>
+            <Grid className="sidePanelElements">
                 <FormControl component="fieldset">
-                    <span style={{ fontWeight: "bold", textDecoration: "underline" }}>
+                    <span style={{fontWeight: "bold", textDecoration: "underline"}}>
                         Landing Success{" "}
                     </span>
                     <RadioGroup
@@ -161,12 +159,12 @@ debugger;
                         value={landingSuccess}
                         onChange={handleChangeLanding}
                     >
-                        <FormControlLabel value="true" control={<Radio />} label="True" />
-                        <FormControlLabel value="false" control={<Radio />} label="False" />
+                        <FormControlLabel value="true" control={<Radio/>} label="True"/>
+                        <FormControlLabel value="false" control={<Radio/>} label="False"/>
                     </RadioGroup>
                 </FormControl>
             </Grid>
-            <Grid style={{ alignItems: "center", padding: 20 }}>
+            <Grid className="sidePanelElements">
                 <Button
                     variant="contained"
                     color="primary"
@@ -175,7 +173,7 @@ debugger;
                     Reset All
                 </Button>
             </Grid>
-            <Grid style={{ alignItems: "center", padding: 20 }}>
+            <Grid className="sidePanelElements">
                 <Button
                     variant="contained"
                     color="primary"

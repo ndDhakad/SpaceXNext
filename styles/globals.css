@@ -39,3 +39,20 @@ a {
   font-size: 14px;
   color: #555;
 }
+
+.sidePanelElements{
+  align-items: center;
+  padding: 5px;
+}
+.noDataHeading{
+  margin: 10px;
+  font-size: 14px;
+  color: red;
+}
+.noDataCard{
+  height:50px;
+  text-align: center;
+  margin: 40px;
+  width: 1000%;
+  justifyContent: center;
+}

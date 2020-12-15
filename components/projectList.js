@@ -5,7 +5,7 @@ export default function ProjectList({launchProjects}){
     return (
         launchProjects.map((item, index) => {
             return (
-                <Grid item xs={12} sm={6} lg={3} key={index} style={{padding: 10}}>
+                <Grid item xs={12} sm={6} lg={3} key={index}>
                     <ProjectCard project={item}/>
                 </Grid>
             )

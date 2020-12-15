@@ -7,34 +7,43 @@ import Grid from "@material-ui/core/Grid";
 import fetch from "isomorphic-unfetch";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
+import {SyncLoader} from "react-spinners";
+import NoDataAlert from "../components/noDataAlert";
 
 export default function Home(props) {
     const [data, setData] = React.useState([]);
+    const [spinner, setSpinner] = React.useState(false);
     const router = useRouter();
     useEffect(async () => {
         let value = router.query;
         let transformedParams = {};
+        setSpinner(true);
+        try {
+            for (let i in value)
+                if (
+                    (value.hasOwnProperty(i) && value[i] !== undefined) ||
+                    value[i] !== null
+                )
+                    transformedParams[i] = value[i];
+            let queryString = Object.keys(transformedParams)
+                .map(function (k) {
+                    return (
+                        encodeURIComponent(k) + "=" + encodeURIComponent(transformedParams[k])
+                    );
+                })
+                .join("&");
 
-        for (let i in value)
-            if (
-                (value.hasOwnProperty(i) && value[i] !== undefined) ||
-                value[i] !== null
-            )
-                transformedParams[i] = value[i];
-        let queryString = Object.keys(transformedParams)
-            .map(function (k) {
-                return (
-                    encodeURIComponent(k) + "=" + encodeURIComponent(transformedParams[k])
-                );
-            })
-            .join("&");
+            let res = await fetch(
+                "https://api.spaceXdata.com/v3/launches?limit=100" + "&" + queryString
+            );
+            const data = await res.json();
 
-        let res = await fetch(
-            "https://api.spaceXdata.com/v3/launches?limit=100" + "&" + queryString
-        );
-        const data = await res.json();
-
-        setData(data);
+            setData(data);
+        }
+        catch (e) {
+            console.log(e);
+        }
+        setSpinner(false);
     }, []);
 
     const onApplyFilterHandler = (queryString, data) => {
@@ -46,7 +55,7 @@ export default function Home(props) {
     return (
         <div className={styles.container}>
             <Head>
-                <title>Create Next App</title>
+                <title>SpaceX Launch</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Layout>
@@ -61,6 +70,7 @@ export default function Home(props) {
                         <SidePanel
                             onApplyFilterHandler={onApplyFilterHandler}
                             filter={router && router.query ? router.query : null}
+                            setSpinner={setSpinner}
                         />
                     </Grid>
                     <Grid
@@ -68,9 +78,35 @@ export default function Home(props) {
                         xs={12}
                         sm={8}
                         lg={10}
-                        style={{ display: "flex", flexFlow: "wrap" }}
+                        style={{ display: "flex", flexFlow: "wrap"}}
                     >
-                        <ProjectList launchProjects={data} />
+                        {
+                            (() => {
+                                if (spinner) {
+                                    return (
+                                        <div style={{
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            height: '20px',
+                                            width: '1000%'
+                                        }}>
+                                            <SyncLoader size={10} margin={2} color={"#0000a0"}
+                                                        loading={true}/>
+                                        </div>
+
+                                    )
+                                } else if(data.length===0){
+                                    return (
+                                        <NoDataAlert/>
+                                    )
+                                }else {
+                                    return (
+                                        <ProjectList launchProjects={data}/>
+                                    )
+                                }
+                            })()
+                        }
                     </Grid>
                 </Grid>
             </Layout>

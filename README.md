@@ -1,21 +1,10 @@
 This project is hosted at [`https://space-xn-ext.vercel.app/`](https://space-xn-ext.vercel.app/).
 
 ## About
-
+This is an assignment for Space X Launch Details.
 This application is built using Next.js to serve the requirement for server side rendering(SSR). 
 I have used [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) provided by the creators of Next.js, to deploy the app as it was the easiest way for quick CI/CD. 
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
 ##  Design, Accessibility and Semantic markup
 
@@ -39,13 +28,19 @@ Following requirements are taken care of with the help of 'useRouter' from 'next
                 • If the page is refreshed with the applied filters in the URL – the resulting page should be server side rendered & subsequent filters should again be client side rendered.
 - Columns have the same height in a given row
 - I have used lazy loading for images using 'next/image', so the images are downloaded as we scroll down thru the page. Is also retuns image in 'webp' type which is an optimised format. The size of image is also reduced significantly.
-- 
 
+## Code Structure 
+- I have tried to make code as modular as possible. Created seperate componets for Project Cards, Side Filet panel, Layout, No Data Alert. These can be reused wherever required.
+- Have the global styling in global.css file.
+- I have used React Hook to manage state for current requirement of the application . Redux can also be implemented.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## CI/CD
+Both CI and CD are handled by versel as it was very easy to configure. As soon as I update my master branch the pipeline gets triggered and the app get deployed.
 
-## Deploy on Vercel
+## Miscellaneous
+I used Chrome's Lighthouse extension to monitor the performance and improved the performance by optimizing image rendering and SSR. 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Assumptions Issues Faced
+- Found few null values for landing_success field. I replace the null values with 'NA' as I thought null is not a value user would like to see on the UI.
+- There were few image urls which has null values, this was throwing error while rendering. I replace null with dummy image url, so a question mark image would appear in place whre image url is not present.
+- Faced issue initially with route but then was able to overcome it by trying few things.

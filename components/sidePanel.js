@@ -172,7 +172,7 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
     const filterButtons = (filterName, filterButtonArray) =>{
         console.log(filterName);
         return(
-            <Grid style={{textAlign: "center"}}>
+            <Grid style={{textAlign: "center", paddingBottom: 20}}>
                 <span style={{fontWeight: "bold", textDecoration: "underline"}}>
                     {`${filterName} `}
                 </span>
@@ -203,18 +203,18 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
             {filterButtons("Launch Success", ["True","False"])}
             {filterButtons("Landing Success", ["True","False"])}
 
-            <Grid className="sidePanelElements">
+            <Grid className="sidePanelElements" style={{ paddingBottom: 20}}>
                 <button
-                    className="btnClassActive"
+                    className="btnClass"
 
                     onClick={(e) => onClickResetHandler(e, false)}
                 >
                     Reset All
                 </button>
             </Grid>
-            <Grid className="sidePanelElements">
+            <Grid className="sidePanelElements" style={{paddingBottom: 20}}>
                 <button
-                    className="btnClassActive"
+                    className="btnClass"
 
                     onClick={onClickApplyHandler}
                 >

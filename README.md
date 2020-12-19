@@ -8,8 +8,7 @@ I have used [Vercel Platform](https://vercel.com/import?utm_medium=default-templ
 
 ##  Design, Accessibility and Semantic markup
 
-- I have tried to achieve almost the same UI as expected. I have Changed the 'Launch Year' filter to drop-down, 
-so that is number of years increases a select list can represent this filter in better way.
+- I have tried to achieve the same UI as expected in addition to it I have also added 'Apply' and 'Reset' buttons. 
 - I have used 'Grid' system to achieve responsive behaviour for all kinds of devices.
 - I have tried to kep my code modular and created components like projectCard/ noDataAlert/ sidePanel that can be reused accross the application. 
 

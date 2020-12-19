@@ -23,7 +23,7 @@ export default function ProjectCard({project}){
             </div>
 
             <div className="myinfo">
-                <b> Mission Ids:</b> {project.mission_id.join(",")}
+                <b color="black"> Mission Ids:</b> {project.mission_id.join(",")}
             </div>
             <div className="myinfo">
                 <b>Launch Year:</b> {project.launch_year}

@@ -34,7 +34,6 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
     const [landingSuccess, setLandingSuccess] = React.useState(null);
 
     useEffect(() => {
-        console.log("SidePanel", filter);
 
         if (filter) {
             setYear(filter.launch_year);
@@ -75,10 +74,10 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
         };
 
         let transformedParams = {};
-        debugger;
+
         for (let i in value)
             if (value[i] !== null && value[i] !== undefined) {
-                console.log(value[i]);
+
                 transformedParams[i] = value[i];
             }
 
@@ -93,7 +92,7 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
                 })
                 .join("&");
 
-        console.log("VALUE", value, transformedParams, queryString);
+        // console.log("VALUE", value, transformedParams, queryString);
 
 
         const urlQueryString = resetFilter ? "" : "?" + queryString;
@@ -170,7 +169,7 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
     }
 
     const filterButtons = (filterName, filterButtonArray) =>{
-        console.log(filterName);
+
         return(
             <Grid style={{textAlign: "center", paddingBottom: 20}}>
                 <span style={{fontWeight: "bold", textDecoration: "underline"}}>

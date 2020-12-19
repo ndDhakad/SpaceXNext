@@ -88,3 +88,11 @@ a {
 }
 
 .btnClass:hover {background-color: #6B7F33}
+
+.spinner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  width: 100%;
+}

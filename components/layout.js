@@ -3,7 +3,7 @@ import styles from "../styles/Home.module.css";
 export default function Layout (props) {
     return(
         <div>
-            <h1>Space X Launch Details</h1>
+            <h1>Space X Launch Programs</h1>
             {props.children}
             <footer className={styles.footer}>
                 <a
@@ -11,7 +11,7 @@ export default function Layout (props) {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Developed by Namita Dhakad
+                    Developed by: Namita Dhakad
                 </a>
             </footer>
         </div>

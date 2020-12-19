@@ -1,14 +1,9 @@
 import React, {useEffect} from "react";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
+
 import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
 import styles from "../styles/Home.module.css";
 
 import Grid from "@material-ui/core/Grid";
-import Select from "react-select";
 
 import fetch from "isomorphic-unfetch";
 import config from "../config.json";
@@ -47,19 +42,7 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
             setLandingSuccess(filter.land_success);
         }
     }, [filter.year, filter.launchSuccess, filter.landingSuccess]);
-    const handleChangeYear = (newValue) => {
-        let value = newValue !== null ? newValue.value : null;
 
-        setYear(value);
-    };
-
-    const handleChangeLaunch = (event) => {
-        setLaunchSuccess(event.target.value);
-    };
-
-    const handleChangeLanding = (event) => {
-        setLandingSuccess(event.target.value);
-    };
 
     const onClickResetHandler = () => {
         if(year !== null && year !== undefined){
@@ -223,8 +206,7 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
             <Grid className="sidePanelElements">
                 <button
                     className="btnClassActive"
-                    //variant="contained"
-                    //color="primary"
+
                     onClick={(e) => onClickResetHandler(e, false)}
                 >
                     Reset All
@@ -233,8 +215,7 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
             <Grid className="sidePanelElements">
                 <button
                     className="btnClassActive"
-                    //variant="contained"
-                    //color="primary"
+
                     onClick={onClickApplyHandler}
                 >
                     Apply Filter

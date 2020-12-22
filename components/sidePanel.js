@@ -56,8 +56,10 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
             setLaunchSuccess(filter.launch_success);
             setLandingSuccess(filter.land_success);
         }
+
     }, [filter.year, filter.launchSuccess, filter.landingSuccess]);
 
+    useEffect(()=>{onClickApplyHandler();},[year,landingSuccess,launchSuccess])
 
     const onClickResetHandler = () => {
         if(year !== null && year !== undefined){
@@ -78,7 +80,8 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
         setYear(null);
         setLaunchSuccess(null);
         setLandingSuccess(null);
-        onClickApplyHandler(null, true);
+        console.log(year, landingSuccess, launchSuccess);
+        // onClickApplyHandler(null, true);
     };
 
     async function onClickApplyHandler(e = null, resetFilter = false) {
@@ -88,6 +91,8 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
             land_success: landingSuccess,
             launch_success: launchSuccess,
         };
+
+        console.log(value);
 
         let transformedParams = {};
 
@@ -126,7 +131,7 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
         setSpinner(false);
     }
 
-    const buttonSelected = (event) => {
+    const buttonSelected =(event) => {
 
         const [filterType, filterValue] = event.target.id.split("_");
 
@@ -180,7 +185,10 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
                 elem.classList.add("btnClassActive");
             }
         }
+        console.log(year, landingSuccess, launchSuccess);
+
     }
+
 
     const filterButtons = (filterName, filterButtonArray) =>{
 
@@ -195,7 +203,7 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
                         filterButtonArray.map((item)=>{
                             return(
                                 <Grid item xs={6} sm={6} md={6} lg={6} key={`${filterName}_${item}`}>
-                                    <button id={`${filterName}_${item}`} className="btnClass" onClick={(event) => buttonSelected(event)}>
+                                    <button id={`${filterName}_${item}`} className="btnClass" onClick={(event) => { buttonSelected(event); }}>
                                         {item}
                                     </button>
                                 </Grid>
@@ -225,15 +233,15 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
                     Reset All
                 </button>
             </Grid>
-            <Grid className="sidePanelButtons">
-                <button
-                    className="btnClass"
+            {/*<Grid className="sidePanelButtons">*/}
+            {/*    <button*/}
+            {/*        className="btnClass"*/}
 
-                    onClick={onClickApplyHandler}
-                >
-                    Apply Filter
-                </button>
-            </Grid>
+            {/*        onClick={onClickApplyHandler}*/}
+            {/*    >*/}
+            {/*        Apply Filter*/}
+            {/*    </button>*/}
+            {/*</Grid>*/}
         </Paper>
     );
 }

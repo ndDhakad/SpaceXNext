@@ -7,11 +7,11 @@ export default function Layout (props) {
             {props.children}
             <footer className={styles.footer}>
                 <a
-                    href=""
+                    href="https://github.com/ndDhakad/SpaceXNext"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Developed by: <a href="https://github.com/ndDhakad/SpaceXNext">Namita Dhakad</a>
+                    Developed by: Namita Dhakad
                 </a>
             </footer>
         </div>

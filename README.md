@@ -8,7 +8,7 @@ I have used [Vercel Platform](https://vercel.com/import?utm_medium=default-templ
 
 ##  Design, Accessibility and Semantic markup
 
-- I have tried to achieve the same UI as expected in addition to it I have also added 'Apply' and 'Reset' buttons. 
+- I have tried to achieve the same UI as expected in addition to it I have also added 'Reset All' button to go back to the original state with no filters applied. 
 - I have used 'Grid' system to achieve responsive behaviour for all kinds of devices.
 - I have tried to keep my code modular by creating components like projectCard/ noDataAlert/ sidePanel that can be reused across the application. 
 
@@ -42,4 +42,3 @@ I used Chrome's Lighthouse extension to monitor the performance and improved the
 - Found few null values for landing_success field. I replace the null values with 'NA' as I thought null is not a value user would like to see on the UI.
 - There were few image urls which has null values, this was throwing error while rendering. I replace null with dummy image url, so a question mark image would appear in place whre image url is not present.
 - Faced issue initially with route but then was able to overcome it by trying few things.
-- I have given 'Apply' and 'Reset' buttons on filer. 'Apply' button will reduce the number of api calls when used it trying to select multiple filters. 

@@ -18,6 +18,7 @@ export default function Home(props) {
     const [spinner, setSpinner] = React.useState(false);
     const router = useRouter();
     useEffect(async () => {
+
         let value = router.query;
         let transformedParams = {};
         setSpinner(true);
@@ -37,7 +38,7 @@ export default function Home(props) {
                 .join("&");
 
             let res = await fetch(
-                `${apiEndPoint} & ${queryString}`
+                `${apiEndPoint}&${queryString}`
             );
             const data = await res.json();
 
@@ -50,7 +51,7 @@ export default function Home(props) {
     }, []);
 
     const onApplyFilterHandler = (queryString, data) => {
-        console.log("INDEX", queryString);
+
         router.push("", queryString, { shallow: true });
         setData(data);
     };
@@ -120,6 +121,7 @@ export default function Home(props) {
 Home.getInitialProps = async function () {
     /*const queryKey = 'user';
       const queryValue = router.query[queryKey] || router.asPath.match(new RegExp(`[&?]${queryKey}=(.*)(&|$)`))*/
+
     try {
         const res = await fetch(apiEndPoint );
         const data = await res.json();

@@ -36,6 +36,22 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
     useEffect(() => {
 
         if (filter) {
+
+            if(filter.launch_year !== null && filter.launch_year !== undefined){
+                const elem2 = document.getElementById("Launch Year_"+filter.launch_year);
+                elem2.classList.remove("btnClass");
+                elem2.classList.add("btnClassActive");
+            }
+            if(filter.launchSuccess !== null && filter.launchSuccess !== undefined){
+                const elem2 = document.getElementById("Launch Success_"+filter.launchSuccess);
+                elem2.classList.remove("btnClassActive");
+                elem2.classList.add("btnClass");
+            }
+            if(filter.landingSuccess !== null && filter.landingSuccess !== undefined){
+                const elem2 = document.getElementById("Landing Success_"+filter.landingSuccess);
+                elem2.classList.remove("btnClassActive");
+                elem2.classList.add("btnClass");
+            }
             setYear(filter.launch_year);
             setLaunchSuccess(filter.launch_success);
             setLandingSuccess(filter.land_success);
@@ -92,10 +108,8 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
                 })
                 .join("&");
 
-        // console.log("VALUE", value, transformedParams, queryString);
 
-
-        const urlQueryString = resetFilter ? "" : "?" + queryString;
+        const urlQueryString = resetFilter || queryString === ""? "" : "?" + queryString;
         queryString = resetFilter ? "" : "&" + queryString;
         let data = [];
         try {
@@ -180,7 +194,7 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
                     {
                         filterButtonArray.map((item)=>{
                             return(
-                                <Grid xs={6} sm={6} md={6} lg={6}>
+                                <Grid item xs={6} sm={6} md={6} lg={6} key={`${filterName}_${item}`}>
                                     <button id={`${filterName}_${item}`} className="btnClass" onClick={(event) => buttonSelected(event)}>
                                         {item}
                                     </button>

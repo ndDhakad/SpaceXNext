@@ -209,14 +209,14 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
     }
 
     return (
-        <Paper elevation={3} className={styles.container}>
+        <Paper elevation={3} className={styles.grid}>
             <h2>Filters</h2>
 
             {filterButtons("Launch Year", yearButtons)}
             {filterButtons("Launch Success", ["True","False"])}
             {filterButtons("Landing Success", ["True","False"])}
 
-            <Grid className="sidePanelElements" style={{ paddingBottom: 20}}>
+            <Grid className="sidePanelButtons">
                 <button
                     className="btnClass"
 
@@ -225,7 +225,7 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
                     Reset All
                 </button>
             </Grid>
-            <Grid className="sidePanelElements" style={{paddingBottom: 20}}>
+            <Grid className="sidePanelButtons">
                 <button
                     className="btnClass"
 

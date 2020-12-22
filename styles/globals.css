@@ -50,11 +50,16 @@ a {
   display: flex;
   flex-wrap: wrap;
   padding: 5px;
-}/*
-.sidePanelElements{
+}
+
+.sidePanelButtons{
   align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
   padding: 5px;
-}*/
+}
+
 .noDataHeading{
   margin: 10px;
   font-size: 14px;
@@ -98,8 +103,7 @@ a {
   width: 100%;
 }
 
-filterPanel{
+.filterPanel{
   text-align: center;
   padding-bottom: 20px;
-  margin: 5px;
 }

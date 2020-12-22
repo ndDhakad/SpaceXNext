@@ -68,7 +68,7 @@ export default function Home(props) {
                     xs={12}
                     sm={12}
                     lg={12}
-                    style={{ display: "flex", flexFlow: "wrap" }}
+                    style={{ display: "flex", flexFlow: "wrap"}}
                 >
                     <Grid item xs={12} sm={4} lg={2}>
                         <SidePanel

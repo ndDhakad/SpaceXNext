@@ -185,7 +185,7 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
     const filterButtons = (filterName, filterButtonArray) =>{
 
         return(
-            <Grid style={{textAlign: "center", paddingBottom: 20}}>
+            <Grid className="filterPanel">
                 <span style={{fontWeight: "bold", textDecoration: "underline"}}>
                     {`${filterName} `}
                 </span>

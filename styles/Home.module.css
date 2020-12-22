@@ -1,5 +1,6 @@
 .container {
   padding: 15px;
+  background-color: lightgray;
 }
 
 .grid {
@@ -32,11 +33,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: darkblue;
+  font-size: 20px;
+  text-decoration: underline;
 }
 
 .title a {
-  color: #0070f3;
+  color: darkblue;
   text-decoration: none;
+
 }
 
 .title a:hover,

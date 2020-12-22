@@ -10,12 +10,11 @@ I have used [Vercel Platform](https://vercel.com/import?utm_medium=default-templ
 
 - I have tried to achieve the same UI as expected in addition to it I have also added 'Apply' and 'Reset' buttons. 
 - I have used 'Grid' system to achieve responsive behaviour for all kinds of devices.
-- I have tried to kep my code modular and created components like projectCard/ noDataAlert/ sidePanel that can be reused accross the application. 
+- I have tried to keep my code modular by creating components like projectCard/ noDataAlert/ sidePanel that can be reused across the application. 
 
 ## Server Side Functionality
 Have achieved following requirement using Next.js
 - The initial launch programs landing page has to be server side rendered.
-- A boilerplate to implement the Server-side rendering can be used.
 
 ## Client Side Functionality
 Following requirements are taken care of with the help of 'useRouter' from 'next/router'.

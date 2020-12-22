@@ -21,6 +21,7 @@ a {
   padding: 15px;
   margin: 5px;
   border-radius: 5px;
+  background-color: white;
 }
 .myimg {
   text-align: center;
@@ -95,4 +96,10 @@ a {
   align-items: center;
   height: 20px;
   width: 100%;
+}
+
+filterPanel{
+  text-align: center;
+  padding-bottom: 20px;
+  margin: 5px;
 }

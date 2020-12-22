@@ -11,7 +11,7 @@ export default function Layout (props) {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Developed by: Namita Dhakad
+                    Developed by: <a href="https://github.com/ndDhakad/SpaceXNext">Namita Dhakad</a>
                 </a>
             </footer>
         </div>

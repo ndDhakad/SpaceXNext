@@ -30,8 +30,15 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
 
     const yearButtons = ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
     const [year, setYear] = React.useState(null);
+    const [filters, setFilters] = React.useState(false);
     const [launchSuccess, setLaunchSuccess] = React.useState(null);
     const [landingSuccess, setLandingSuccess] = React.useState(null);
+    useEffect(()=>{
+        console.log(year,landingSuccess,launchSuccess);
+        if(filters){
+            onClickApplyHandler();
+        }
+        },[filters, year,launchSuccess, landingSuccess]);
 
     useEffect(() => {
 
@@ -42,24 +49,25 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
                 elem2.classList.remove("btnClass");
                 elem2.classList.add("btnClassActive");
             }
-            if(filter.launchSuccess !== null && filter.launchSuccess !== undefined){
-                const elem2 = document.getElementById("Launch Success_"+filter.launchSuccess);
-                elem2.classList.remove("btnClassActive");
-                elem2.classList.add("btnClass");
+            if(filter.launch_success !== null && filter.launch_success !== undefined){
+                const elem2 = document.getElementById("Launch Success_"+filter.launch_success.toLowerCase());
+                elem2.classList.remove("btnClass");
+                elem2.classList.add("btnClassActive");
             }
-            if(filter.landingSuccess !== null && filter.landingSuccess !== undefined){
-                const elem2 = document.getElementById("Landing Success_"+filter.landingSuccess);
-                elem2.classList.remove("btnClassActive");
-                elem2.classList.add("btnClass");
+            if(filter.land_success !== null && filter.land_success !== undefined){
+                const elem2 = document.getElementById("Landing Success_"+filter.land_success.toLowerCase());
+                elem2.classList.remove("btnClass");
+                elem2.classList.add("btnClassActive");
             }
+
             setYear(filter.launch_year);
-            setLaunchSuccess(filter.launch_success);
-            setLandingSuccess(filter.land_success);
+            setLaunchSuccess(filter.launch_success !== undefined && filter.launch_success!== null ? filter.launch_success.toLowerCase() : filter.launch_success);
+            setLandingSuccess(filter.land_success !== undefined && filter.land_success!== null ? filter.land_success.toLowerCase() : filter.land_success);
+            setFilters(false);
         }
 
     }, [filter.year, filter.launchSuccess, filter.landingSuccess]);
 
-    useEffect(()=>{onClickApplyHandler();},[year,landingSuccess,launchSuccess])
 
     const onClickResetHandler = () => {
         if(year !== null && year !== undefined){
@@ -81,18 +89,18 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
         setLaunchSuccess(null);
         setLandingSuccess(null);
         console.log(year, landingSuccess, launchSuccess);
+        setFilters(true);
         // onClickApplyHandler(null, true);
     };
 
     async function onClickApplyHandler(e = null, resetFilter = false) {
         setSpinner(true);
         let value = {
+            launch_success: launchSuccess !== undefined && launchSuccess !== null? launchSuccess.toLowerCase() : launchSuccess,
+            land_success: landingSuccess !== undefined && landingSuccess !==null ? landingSuccess.toLowerCase() : landingSuccess,
             launch_year: year,
-            land_success: landingSuccess,
-            launch_success: launchSuccess,
         };
 
-        console.log(value);
 
         let transformedParams = {};
 
@@ -116,6 +124,7 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
 
         const urlQueryString = resetFilter || queryString === ""? "" : "?" + queryString;
         queryString = resetFilter ? "" : "&" + queryString;
+
         let data = [];
         try {
             const res = await fetch(
@@ -186,7 +195,7 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
             }
         }
         console.log(year, landingSuccess, launchSuccess);
-
+        setFilters(true);
     }
 
 
@@ -202,8 +211,8 @@ export default function SidePanel({onApplyFilterHandler, filter, setSpinner}) {
                     {
                         filterButtonArray.map((item)=>{
                             return(
-                                <Grid item xs={6} sm={6} md={6} lg={6} key={`${filterName}_${item}`}>
-                                    <button id={`${filterName}_${item}`} className="btnClass" onClick={(event) => { buttonSelected(event); }}>
+                                <Grid item xs={6} sm={6} md={6} lg={6} key={`${filterName}_${item.toLowerCase()}`}>
+                                    <button id={`${filterName}_${item.toLowerCase()}`} className="btnClass" onClick={(event) => { buttonSelected(event); }}>
                                         {item}
                                     </button>
                                 </Grid>

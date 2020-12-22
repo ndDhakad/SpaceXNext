@@ -32,7 +32,7 @@ export default function Home(props) {
             let queryString = Object.keys(transformedParams)
                 .map(function (k) {
                     return (
-                        encodeURIComponent(k) + "=" + encodeURIComponent(transformedParams[k])
+                        encodeURIComponent(k) + "=" + encodeURIComponent(transformedParams[k].toLowerCase())
                     );
                 })
                 .join("&");
